@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Multiplication Tables</string>
+    <string name="header">Multiplication Table</string>
+    <string name="splashscreen">splashScreen</string>
+    <string name="splashText">Multiplication Tables</string>
+    <string name="instruction">Change the slider to view tables</string>
+    <string name="splashimg">splashImg</string>
+</resources>
