@@ -9,6 +9,9 @@ import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     TextView instruction;
     ListView listView;
     SeekBar seekBar;
+    AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         seekBar = findViewById(R.id.seekBar);
         instruction = findViewById(R.id.instruction);
+        adView = findViewById(R.id.bannerAd);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
 
         seekBar.setMax(30);
 
