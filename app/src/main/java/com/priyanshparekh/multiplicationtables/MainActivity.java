@@ -1,6 +1,7 @@
 package com.priyanshparekh.multiplicationtables;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     TextView instruction;
     ListView listView;
     SeekBar seekBar;
+
+    TextView textView2;
     AdView adView;
 
     @Override
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         seekBar = findViewById(R.id.seekBar);
         instruction = findViewById(R.id.instruction);
+
+        textView2 = findViewById(R.id.textView2);
         adView = findViewById(R.id.bannerAd);
 
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             mulTable.add(table + " X " + i + " = " + table*i);
         }
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mulTable);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, R.layout.item_list, mulTable);
         listView.setAdapter(arrayAdapter);
         table_count.setText("Table of " + table);
         table_count.setBackground(getDrawable(R.drawable.table_bg));
