@@ -5,5 +5,6 @@
     <string name="splashText">Multiplication Tables</string>
     <string name="instruction">Change the slider to view tables</string>
     <string name="splashimg">splashImg</string>
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="sample_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+<!--    <string name="banner_ad_unit_id">ca-app-pub-6024850353910570/6850549778</string>-->
 </resources>
