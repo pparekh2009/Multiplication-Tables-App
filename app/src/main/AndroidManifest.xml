@@ -9,19 +9,16 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MultiplicationTables">
-        <activity android:name="com.priyanshparekh.multiplicationtables.MainActivity" />
-        <activity android:name="com.priyanshparekh.multiplicationtables.SplashScreen">
+        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".QuizActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <meta-data
-            android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~6300978111"/>
-        
     </application>
 
 </manifest>
