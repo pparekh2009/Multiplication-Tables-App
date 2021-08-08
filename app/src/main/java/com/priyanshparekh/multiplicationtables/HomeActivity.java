@@ -19,6 +19,7 @@ public class HomeActivity extends AppCompatActivity {
         learnBtn = findViewById(R.id.learn_btn);
         quizBtn = findViewById(R.id.quiz_btn);
 
+        // Navigates to multiplication tables page
         learnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -27,6 +28,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        // Navigates to quiz page
         quizBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

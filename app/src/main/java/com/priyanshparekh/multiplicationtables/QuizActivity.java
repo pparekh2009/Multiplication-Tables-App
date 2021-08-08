@@ -30,18 +30,22 @@ public class QuizActivity extends AppCompatActivity{
                 Random random = new Random();
                 int btn = random.nextInt(btn_array.length);
 
+                // Set numbers in question from 1 to 20
                 activityQuizBinding.tvNum1.setText(String.valueOf((int)Math.floor(Math.random()*(20))+1));
                 activityQuizBinding.tvNum2.setText(String.valueOf((int)Math.floor(Math.random()*(10))+1));
+
 
                 int num1 = Integer.parseInt(activityQuizBinding.tvNum1.getText().toString());
                 int num2 = Integer.parseInt(activityQuizBinding.tvNum2.getText().toString());
 
                 btn_array[btn].setText(String.valueOf(num1 * num2));
 
+                // Set options
                 btn_array[(btn+1)%4].setText(String.valueOf((num1 + 1) * num2));
                 btn_array[(btn+2)%4].setText(String.valueOf((num1 + 1) * (num2 - 1)));
                 btn_array[(btn+3)%4].setText(String.valueOf((num1 + 1) * (num2 + 2)));
 
+                // Set background on options button
                 btn_array[0].setBackgroundResource(R.drawable.btn_bg);
                 btn_array[1].setBackgroundResource(R.drawable.btn_bg);
                 btn_array[2].setBackgroundResource(R.drawable.btn_bg);
@@ -117,6 +121,7 @@ public class QuizActivity extends AppCompatActivity{
         return score;
     }
 
+    // Function for disabling buttons after clicking on buttons
     public void disableButton() {
         activityQuizBinding.option1.setEnabled(false);
         activityQuizBinding.option2.setEnabled(false);
@@ -124,6 +129,7 @@ public class QuizActivity extends AppCompatActivity{
         activityQuizBinding.option4.setEnabled(false);
     }
 
+    // Function for enabling buttons on next question
     public void enableButton() {
         activityQuizBinding.option1.setEnabled(true);
         activityQuizBinding.option2.setEnabled(true);

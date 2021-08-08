@@ -1,7 +1,6 @@
 package com.priyanshparekh.multiplicationtables;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
 
         textView2 = findViewById(R.id.textView2);
 
+        // Limit for number of tables
         seekBar.setMax(30);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -57,10 +57,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Populating list of table upto 10
     public void populate(int table) {
         ArrayList<String> mulTable = new ArrayList<>();
 
-        for(int i=1;i<11;i++) {
+        for(int i=1;i<=10;i++) {
             mulTable.add(table + " X " + i + " = " + table*i);
         }
 
