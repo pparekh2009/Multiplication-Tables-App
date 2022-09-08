@@ -2,9 +2,12 @@ package com.priyanshparekh.multiplicationtables;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -19,6 +22,8 @@ public class QuizActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         activityQuizBinding = ActivityQuizBinding.inflate(getLayoutInflater());
         setContentView(activityQuizBinding.getRoot());
 
@@ -52,6 +57,14 @@ public class QuizActivity extends AppCompatActivity{
                 btn_array[3].setBackgroundResource(R.drawable.btn_bg);
 
                 enableButton();
+            }
+        });
+
+        // Quit current activity and go to home activity
+        activityQuizBinding.quitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -90,12 +103,22 @@ public class QuizActivity extends AppCompatActivity{
 
     public void checkAns(Button btn) {
 
+        LayoutInflater inflater = getLayoutInflater();
+        View layout1 = inflater.inflate(R.layout.correct_ans_toast, findViewById(R.id.correct_ans_toast));
+        View layout2 = inflater.inflate(R.layout.wrong_ans_toast, findViewById(R.id.wrong_ans_toast));
+
         if (checkAnswer(btn)) {
-            Toast.makeText(this, "Correct", Toast.LENGTH_SHORT).show();
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(layout1);
+            toast.show();
             btn.setBackgroundResource(R.drawable.correct_btn_bg);
         }
         else {
-            Toast.makeText(this, "Wrong", Toast.LENGTH_SHORT).show();
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_SHORT);
+            toast.setView(  layout2);
+            toast.show();
             btn.setBackgroundResource(R.drawable.wrong_btn_bg);
         }
         int score = Integer.parseInt(activityQuizBinding.tvScore.getText().toString());

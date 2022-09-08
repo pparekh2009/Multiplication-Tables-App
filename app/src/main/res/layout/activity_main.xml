@@ -9,12 +9,13 @@
 
     <SeekBar
         android:id="@+id/seekBar"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:progressBackgroundTint="@color/track"
         android:progressTint="@color/progress"
         android:thumb="@drawable/seekbar_thumb"
+        android:layout_marginHorizontal="@dimen/_15sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -23,7 +24,6 @@
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:divider="@color/purple_700"
         android:dividerHeight="1dp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
@@ -33,14 +33,13 @@
 
     <TextView
         android:id="@+id/header"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="12dp"
+        android:layout_margin="@dimen/_10sdp"
         android:fontFamily="@font/hpsimplified_rg"
         android:text="@string/header"
         android:textColor="@color/purple_700"
-        android:textSize="36sp"
+        android:textSize="@dimen/_24sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +50,7 @@
         android:fontFamily="@font/hpsimplified_lt"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="24sp"
+        android:textSize="@dimen/_20sdp"
         android:textStyle="bold"
         tools:text="Table of 30"
         android:layout_marginTop="18dp"
@@ -64,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/instruction"
-        android:textSize="24sp"
+        android:textSize="@dimen/_18sdp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
