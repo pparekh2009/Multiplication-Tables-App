@@ -1,51 +1,56 @@
-package com.priyanshparekh.multiplicationtables;
+package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.priyanshparekh.multiplicationtables.databinding.ActivityQuizBinding;
+import com.priyanshparekh.multiplicationtables.R;
 
 import java.util.Random;
 
-public class QuizActivity extends AppCompatActivity{
+public class QuizActivity extends AppCompatActivity {
 
-    private ActivityQuizBinding activityQuizBinding;
+    Button btnNext, btnQuit;
+    Button btnOption1, btnOption2, btnOption3, btnOption4;
+    TextView tvNum1, tvNum2, tvScore;
+    int noOfLives = 3;
+    String level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        activityQuizBinding = ActivityQuizBinding.inflate(getLayoutInflater());
-        setContentView(activityQuizBinding.getRoot());
+        setContentView(R.layout.activity_quiz);
 
-        Button[] btn_array = new Button[]{activityQuizBinding.option1, activityQuizBinding.option2, activityQuizBinding.option3, activityQuizBinding.option4};
+        initViews();
 
-        activityQuizBinding.nextBtn.setOnClickListener(new View.OnClickListener() {
+        level = getIntent().getStringExtra("level");
+
+        Button[] btn_array = new Button[]{btnOption1, btnOption2, btnOption3, btnOption4};
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Random random = new Random();
                 int btn = random.nextInt(btn_array.length);
 
                 // Set numbers in question from 1 to 20
-                activityQuizBinding.tvNum1.setText(String.valueOf((int)Math.floor(Math.random()*(20))+1));
-                activityQuizBinding.tvNum2.setText(String.valueOf((int)Math.floor(Math.random()*(10))+1));
+                tvNum1.setText(String.valueOf((int)Math.floor(Math.random()*(20))+1));
+                tvNum2.setText(String.valueOf((int)Math.floor(Math.random()*(10))+1));
 
-
-                int num1 = Integer.parseInt(activityQuizBinding.tvNum1.getText().toString());
-                int num2 = Integer.parseInt(activityQuizBinding.tvNum2.getText().toString());
-
-                btn_array[btn].setText(String.valueOf(num1 * num2));
+                int num1 = Integer.parseInt(tvNum1.getText().toString());
+                int num2 = Integer.parseInt(tvNum2.getText().toString());
 
                 // Set options
+                btn_array[btn].setText(String.valueOf(num1 * num2));
                 btn_array[(btn+1)%4].setText(String.valueOf((num1 + 1) * num2));
                 btn_array[(btn+2)%4].setText(String.valueOf((num1 + 1) * (num2 - 1)));
                 btn_array[(btn+3)%4].setText(String.valueOf((num1 + 1) * (num2 + 2)));
@@ -61,44 +66,56 @@ public class QuizActivity extends AppCompatActivity{
         });
 
         // Quit current activity and go to home activity
-        activityQuizBinding.quitBtn.setOnClickListener(new View.OnClickListener() {
+        btnQuit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
 
-        activityQuizBinding.option1.setOnClickListener(new View.OnClickListener() {
+        btnOption1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAns(activityQuizBinding.option1);
+                checkAns(btnOption1);
                 disableButton();
             }
         });
 
-        activityQuizBinding.option2.setOnClickListener(new View.OnClickListener() {
+        btnOption2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAns(activityQuizBinding.option2);
+                checkAns(btnOption2);
                 disableButton();
             }
         });
 
-        activityQuizBinding.option3.setOnClickListener(new View.OnClickListener() {
+        btnOption3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAns(activityQuizBinding.option3);
+                checkAns(btnOption3);
                 disableButton();
             }
         });
 
-        activityQuizBinding.option4.setOnClickListener(new View.OnClickListener() {
+        btnOption4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkAns(activityQuizBinding.option4);
+                checkAns(btnOption4);
                 disableButton();
             }
         });
+    }
+
+    private void initViews() {
+        btnNext = findViewById(R.id.next_btn);
+        btnOption1 = findViewById(R.id.option_1);
+        btnOption2 = findViewById(R.id.option_2);
+        btnOption3 = findViewById(R.id.option_3);
+        btnOption4 = findViewById(R.id.option_4);
+        btnQuit = findViewById(R.id.quit_btn);
+        tvNum1 = findViewById(R.id.tv_num_2);
+        tvNum2 = findViewById(R.id.tv_num_1);
+        tvScore = findViewById(R.id.tv_score);
     }
 
     public void checkAns(Button btn) {
@@ -108,27 +125,27 @@ public class QuizActivity extends AppCompatActivity{
         View layout2 = inflater.inflate(R.layout.wrong_ans_toast, findViewById(R.id.wrong_ans_toast));
 
         if (checkAnswer(btn)) {
-            Toast toast = new Toast(getApplicationContext());
+            Toast toast = new Toast(this);
             toast.setDuration(Toast.LENGTH_SHORT);
             toast.setView(layout1);
             toast.show();
             btn.setBackgroundResource(R.drawable.correct_btn_bg);
         }
         else {
-            Toast toast = new Toast(getApplicationContext());
+            Toast toast = new Toast(this);
             toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(  layout2);
+            toast.setView(layout2);
             toast.show();
             btn.setBackgroundResource(R.drawable.wrong_btn_bg);
         }
-        int score = Integer.parseInt(activityQuizBinding.tvScore.getText().toString());
-        activityQuizBinding.tvScore.setText(String.valueOf(setScore(btn, score)));
+        int score = Integer.parseInt(tvScore.getText().toString());
+        tvScore.setText(String.valueOf(setScore(btn, score)));
     }
 
     public boolean checkAnswer(Button btn) {
         int ans = Integer.parseInt(btn.getText().toString());
-        int num1 = Integer.parseInt(activityQuizBinding.tvNum1.getText().toString());
-        int num2 = Integer.parseInt(activityQuizBinding.tvNum2.getText().toString());
+        int num1 = Integer.parseInt(tvNum1.getText().toString());
+        int num2 = Integer.parseInt(tvNum2.getText().toString());
 
         return (ans == (num1 * num2));
     }
@@ -139,24 +156,25 @@ public class QuizActivity extends AppCompatActivity{
             score = score + 2;
         }
         else {
-            score = score - 1;
+//            score = score - 1;
+            noOfLives = noOfLives - 1;
         }
         return score;
     }
 
     // Function for disabling buttons after clicking on buttons
     public void disableButton() {
-        activityQuizBinding.option1.setEnabled(false);
-        activityQuizBinding.option2.setEnabled(false);
-        activityQuizBinding.option3.setEnabled(false);
-        activityQuizBinding.option4.setEnabled(false);
+        btnOption1.setEnabled(false);
+        btnOption2.setEnabled(false);
+        btnOption3.setEnabled(false);
+        btnOption4.setEnabled(false);
     }
 
     // Function for enabling buttons on next question
     public void enableButton() {
-        activityQuizBinding.option1.setEnabled(true);
-        activityQuizBinding.option2.setEnabled(true);
-        activityQuizBinding.option3.setEnabled(true);
-        activityQuizBinding.option4.setEnabled(true);
+        btnOption1.setEnabled(true);
+        btnOption2.setEnabled(true);
+        btnOption3.setEnabled(true);
+        btnOption4.setEnabled(true);
     }
 }

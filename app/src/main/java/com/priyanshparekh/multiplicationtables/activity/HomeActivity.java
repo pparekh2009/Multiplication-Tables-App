@@ -1,4 +1,4 @@
-package com.priyanshparekh.multiplicationtables;
+package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import com.priyanshparekh.multiplicationtables.R;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class HomeActivity extends AppCompatActivity {
         learnBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, MainActivity.class);
+                Intent intent = new Intent(HomeActivity.this, TableRangeActivity.class);
                 startActivity(intent);
             }
         });
@@ -36,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
         quizBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, QuizActivity.class);
+                Intent intent = new Intent(HomeActivity.this, QuizLevelActivity.class);
                 startActivity(intent);
             }
         });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuizActivity"
+    tools:context=".activity.QuizActivity"
     android:background="@color/bg">
 
     <TextView
@@ -42,6 +42,34 @@
         app:layout_constraintStart_toEndOf="@+id/tv_score_lbl"
         app:layout_constraintTop_toTopOf="@+id/tv_score_lbl"
         app:layout_constraintBottom_toBottomOf="@+id/tv_score_lbl" />
+
+    <LinearLayout
+        android:id="@+id/ll_life_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_score"
+        app:layout_constraintBottom_toBottomOf="@id/tv_score"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_life_1"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/red_heart"/>
+
+        <ImageView
+            android:id="@+id/iv_life_2"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/red_heart"/>
+
+        <ImageView
+            android:id="@+id/iv_life_3"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:src="@drawable/red_heart"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/question_layout"

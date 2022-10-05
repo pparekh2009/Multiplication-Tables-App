@@ -9,18 +9,13 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-        <activity android:name=".HomeActivity" />
-
-        <activity
-            android:name=".QuizActivity"
-            android:parentActivityName=".HomeActivity"/>
-
-        <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".HomeActivity"/>
-
-        <activity android:name=".SplashScreen">
+        <activity android:name=".activity.ScoreActivity"></activity>
+        <activity android:name=".activity.QuizLevelActivity" />
+        <activity android:name=".activity.TableRangeActivity" />
+        <activity android:name=".activity.HomeActivity" />
+        <activity android:name=".activity.QuizActivity" />
+        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

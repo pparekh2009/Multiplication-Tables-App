@@ -1,4 +1,4 @@
-package com.priyanshparekh.multiplicationtables;
+package com.priyanshparekh.multiplicationtables.helper;
 
 import android.content.Context;
 import android.util.DisplayMetrics;
