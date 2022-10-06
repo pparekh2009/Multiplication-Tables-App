@@ -12,7 +12,7 @@ import com.priyanshparekh.multiplicationtables.R;
 
 public class QuizLevelActivity extends AppCompatActivity {
 
-    Button btnEasy, btnMedium, btnHard;
+    Button btnTraining, btnEasy, btnMedium, btnHard, btnInsane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +23,11 @@ public class QuizLevelActivity extends AppCompatActivity {
 
         intiViews();
 
+        btnTraining.setOnClickListener(view -> nextActivity("training"));
         btnEasy.setOnClickListener(view -> nextActivity("easy"));
         btnMedium.setOnClickListener(view -> nextActivity("medium"));
         btnHard.setOnClickListener(view -> nextActivity("hard"));
+        btnInsane.setOnClickListener(view -> nextActivity("insane"));
     }
 
     void nextActivity(String level) {
@@ -35,8 +37,10 @@ public class QuizLevelActivity extends AppCompatActivity {
     }
 
     private void intiViews() {
+        btnTraining = findViewById(R.id.btn_training);
         btnEasy = findViewById(R.id.btn_easy);
         btnMedium = findViewById(R.id.btn_medium);
         btnHard = findViewById(R.id.btn_hard);
+        btnInsane = findViewById(R.id.btn_insane);
     }
 }

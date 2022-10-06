@@ -55,19 +55,19 @@
             android:id="@+id/iv_life_1"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/red_heart"/>
+            android:src="@drawable/grey_heart"/>
 
         <ImageView
             android:id="@+id/iv_life_2"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/red_heart"/>
+            android:src="@drawable/grey_heart"/>
 
         <ImageView
             android:id="@+id/iv_life_3"
             android:layout_width="@dimen/_30sdp"
             android:layout_height="@dimen/_30sdp"
-            android:src="@drawable/red_heart"/>
+            android:src="@drawable/grey_heart"/>
 
     </LinearLayout>
 
