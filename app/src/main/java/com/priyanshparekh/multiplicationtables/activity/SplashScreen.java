@@ -16,6 +16,9 @@ public class SplashScreen extends AppCompatActivity {
 
     ImageView ivLogo;
 
+    Handler handler = new Handler();
+    Runnable runnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,8 +29,13 @@ public class SplashScreen extends AppCompatActivity {
         ivLogo = findViewById(R.id.imageView);
         HelperResizer.getheightandwidth(this);
         HelperResizer.setSize(ivLogo, 794, 1123);
+    }
 
-        new Handler().postDelayed(new Runnable() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        handler.postDelayed(runnable = new Runnable() {
             @Override
             public void run() {
                 Intent i = new Intent(SplashScreen.this, HomeActivity.class);
@@ -35,5 +43,12 @@ public class SplashScreen extends AppCompatActivity {
                 finish();
             }
         }, 3000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        handler.removeCallbacks(runnable);
     }
 }

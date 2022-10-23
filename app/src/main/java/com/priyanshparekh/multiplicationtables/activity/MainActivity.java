@@ -24,14 +24,10 @@ public class MainActivity extends AppCompatActivity {
 
     TextView header;
     TextView table_count;
-//    TextView instruction;
     ListView listView;
     SeekBar seekBar;
-//    ImageView ivPlay;
     TextView textView2;
-    String text;
     ArrayAdapter<String> arrayAdapter;
-//    TextToSpeech toSpeech;
 
 
     @Override
@@ -45,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         table_count = findViewById(R.id.table_count);
         listView = findViewById(R.id.listView);
         seekBar = findViewById(R.id.seekBar);
-//        ivPlay = findViewById(R.id.btn_play);
-//        instruction = findViewById(R.id.instruction);
 
         textView2 = findViewById(R.id.textView2);
 
@@ -56,30 +50,9 @@ public class MainActivity extends AppCompatActivity {
         seekBar.setMax(9);
         populate(range + 1);
 
-//        toSpeech = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
-//            @Override
-//            public void onInit(int status) {
-//                if (status != TextToSpeech.ERROR) {
-//                    toSpeech.setLanguage(Locale.ENGLISH);
-//                }
-//            }
-//        });
-
-//        ivPlay.setOnClickListener(view -> {
-//            for (int i = 0; i < 10; i++) {
-//                String row = arrayAdapter.getItem(i);
-//                Log.d("TAG", "onCreate: row " + i + ": " + row);
-//
-//                text = text + row + "\n";
-//            }
-//
-//            toSpeech.speak(text, TextToSpeech.QUEUE_FLUSH, null, "");
-//        });
-
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                instruction.setVisibility(View.GONE);
                 populate(progress + range + 1);
             }
 

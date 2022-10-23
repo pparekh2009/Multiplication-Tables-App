@@ -124,8 +124,6 @@ public class QuizActivity extends AppCompatActivity {
         }
 
         // Set numbers in question from 1 to 20
-//        tvNum1.setText(String.valueOf((int)Math.floor(Math.random()*(20))+1));
-//        tvNum2.setText(String.valueOf((int)Math.floor(Math.random()*(10))+1));
         tvNum1.setText(String.valueOf(getRandomNumber(min, max)));
         tvNum2.setText(String.valueOf(getRandomNumber(min, max)));
 
@@ -208,7 +206,6 @@ public class QuizActivity extends AppCompatActivity {
             score = score + 2;
         }
         else {
-//            score = score - 1;
             noOfLives = noOfLives - 1;
             Log.d("TAG", "setScore: noOfLives: " + noOfLives);
             if (noOfLives == 0) {
