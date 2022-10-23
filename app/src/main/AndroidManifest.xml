@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.ScoreActivity"></activity>
+        <activity android:name=".activity.ExitActivity"></activity>
+        <activity android:name=".activity.ScoreActivity" />
         <activity android:name=".activity.QuizLevelActivity" />
         <activity android:name=".activity.TableRangeActivity" />
         <activity android:name=".activity.HomeActivity" />

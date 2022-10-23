@@ -2,6 +2,7 @@ package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -210,8 +211,15 @@ public class QuizActivity extends AppCompatActivity {
 //            score = score - 1;
             noOfLives = noOfLives - 1;
             Log.d("TAG", "setScore: noOfLives: " + noOfLives);
-            resetLivesImg();
-            updateLives(noOfLives);
+            if (noOfLives == 0) {
+                Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
+                intent.putExtra("score", score);
+                startActivity(intent);
+                finish();
+            } else {
+                resetLivesImg();
+                updateLives(noOfLives);
+            }
         }
         return score;
     }

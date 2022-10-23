@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.TableRangeActivity">
+    tools:context=".activity.TableRangeActivity"
+    android:background="@color/bg">
 
     <Button
         android:id="@+id/btn_1_10"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="1 - 10"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,11 +23,12 @@
 
     <Button
         android:id="@+id/btn_11_20"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="11 - 20"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintTop_toTopOf="@id/btn_1_10"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,11 +37,12 @@
 
     <Button
         android:id="@+id/btn_21_30"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="21 - 30"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_31_40"
@@ -47,11 +51,12 @@
 
     <Button
         android:id="@+id/btn_31_40"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="31 - 40"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintTop_toTopOf="@id/btn_21_30"
         app:layout_constraintStart_toEndOf="@id/btn_21_30"
@@ -60,11 +65,12 @@
 
     <Button
         android:id="@+id/btn_41_50"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="41 - 50"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_21_30"
@@ -73,11 +79,12 @@
 
     <Button
         android:id="@+id/btn_51_60"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="51 - 60"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/btn_41_50"
@@ -86,11 +93,12 @@
 
     <Button
         android:id="@+id/btn_61_70"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="61 - 70"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_41_50"
@@ -99,11 +107,12 @@
 
     <Button
         android:id="@+id/btn_71_80"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="71 - 80"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/btn_61_70"
@@ -113,11 +122,12 @@
 
     <Button
         android:id="@+id/btn_81_90"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="81 - 90"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_91_100"
@@ -126,11 +136,12 @@
 
     <Button
         android:id="@+id/btn_91_100"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="91 - 100"
         android:textSize="@dimen/_20sdp"
         android:padding="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
         app:layout_constraintTop_toTopOf="@id/btn_81_90"
         app:layout_constraintStart_toEndOf="@id/btn_81_90"

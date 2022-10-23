@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.QuizLevelActivity">
+    tools:context=".activity.QuizLevelActivity"
+    android:background="@color/bg">
 
     <TextView
         android:id="@+id/tv_level_header"
@@ -19,11 +20,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/btn_easy"/>
+        app:layout_constraintBottom_toTopOf="@id/btn_training"/>
 
     <Button
         android:id="@+id/btn_training"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Training"
         android:layout_marginTop="@dimen/_50sdp"
@@ -35,7 +36,7 @@
 
     <Button
         android:id="@+id/btn_easy"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Easy"
         android:layout_marginTop="@dimen/_10sdp"
@@ -47,7 +48,7 @@
 
     <Button
         android:id="@+id/btn_medium"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Medium"
         android:layout_marginTop="@dimen/_15sdp"
@@ -59,7 +60,7 @@
 
     <Button
         android:id="@+id/btn_hard"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Hard"
         android:layout_marginTop="@dimen/_15sdp"
@@ -71,7 +72,7 @@
 
     <Button
         android:id="@+id/btn_insane"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/_120sdp"
         android:layout_height="wrap_content"
         android:text="Insane"
         android:layout_marginTop="@dimen/_15sdp"
