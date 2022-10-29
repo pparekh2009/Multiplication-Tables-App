@@ -72,6 +72,16 @@
         android:background="@drawable/btn_bg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toTopOf="@id/sa_banner_container"/>
+
+    <RelativeLayout
+        android:id="@+id/sa_banner_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

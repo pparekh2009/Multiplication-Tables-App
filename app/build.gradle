@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.priyanshparekh.multiplicationtables"
-        minSdkVersion 24
+        minSdkVersion 21
         targetSdkVersion 32
         versionCode 4
         versionName "2.0"
@@ -40,5 +40,13 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    implementation project(path: ':unity-ads')
+
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    // custom toast
+    implementation('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
+        // exclusion is not necessary, but generally a good idea.
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
 }

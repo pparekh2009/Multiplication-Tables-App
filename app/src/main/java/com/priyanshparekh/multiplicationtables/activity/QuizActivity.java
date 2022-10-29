@@ -2,23 +2,40 @@ package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.priyanshparekh.multiplicationtables.R;
+import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
+import com.unity3d.ads.IUnityAdsListener;
+import com.unity3d.ads.UnityAds;
+import com.unity3d.services.banners.BannerView;
 
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class QuizActivity extends AppCompatActivity {
+import de.keyboardsurfer.android.widget.crouton.Configuration;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
+import de.keyboardsurfer.android.widget.crouton.Style;
+
+public class QuizActivity extends AppCompatActivity implements IUnityAdsListener {
 
     Button btnNext, btnQuit;
     Button btnOption1, btnOption2, btnOption3, btnOption4;
@@ -27,6 +44,15 @@ public class QuizActivity extends AppCompatActivity {
     String level;
     ImageView ivLife1, ivLife2, ivLife3;
     Button[] btn_array;
+    LinearLayout optionBtns;
+
+    AdManager adManager;
+    BannerView bannerView;
+    RelativeLayout bannerContainer;
+    boolean continuePressed = false;
+    boolean testMode = true;
+    String unityGameId = "4992527";
+    String rewardedPlacement = "Rewarded_Android";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +64,14 @@ public class QuizActivity extends AppCompatActivity {
         initViews();
         updateLives(noOfLives);
 
+        UnityAds.initialize(this, unityGameId, this, testMode);
+
+        bannerContainer = findViewById(R.id.qa_banner_container);
+        adManager = new AdManager(this);
+        bannerView = adManager.initBanner();
+        bannerView.load();
+        bannerContainer.addView(bannerView);
+
         level = getIntent().getStringExtra("level");
 
         btn_array = new Button[]{btnOption1, btnOption2, btnOption3, btnOption4};
@@ -47,6 +81,7 @@ public class QuizActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Crouton.cancelAllCroutons();
                 setQuestion(level);
             }
         });
@@ -154,6 +189,7 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     private void initViews() {
+        optionBtns = findViewById(R.id.option_btns);
         btnNext = findViewById(R.id.next_btn);
         btnOption1 = findViewById(R.id.option_1);
         btnOption2 = findViewById(R.id.option_2);
@@ -175,17 +211,19 @@ public class QuizActivity extends AppCompatActivity {
         View layout2 = inflater.inflate(R.layout.wrong_ans_toast, findViewById(R.id.wrong_ans_toast));
 
         if (checkAnswer(btn)) {
-            Toast toast = new Toast(this);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout1);
-            toast.show();
+            Crouton.makeText(this, "Yay! Correct Answer", Style.CONFIRM, optionBtns).show();
+//            Toast toast = new Toast(this);
+//            toast.setDuration(Toast.LENGTH_SHORT);
+//            toast.setView(layout1);
+//            toast.show();
             btn.setBackgroundResource(R.drawable.correct_btn_bg);
         }
         else {
-            Toast toast = new Toast(this);
-            toast.setDuration(Toast.LENGTH_SHORT);
-            toast.setView(layout2);
-            toast.show();
+            Crouton.makeText(this, "Oops! Wrong Answer", Style.ALERT, optionBtns).show();
+//            Toast toast = new Toast(this);
+//            toast.setDuration(Toast.LENGTH_SHORT);
+//            toast.setView(layout2);
+//            toast.show();
             btn.setBackgroundResource(R.drawable.wrong_btn_bg);
         }
         int score = Integer.parseInt(tvScore.getText().toString());
@@ -209,10 +247,9 @@ public class QuizActivity extends AppCompatActivity {
             noOfLives = noOfLives - 1;
             Log.d("TAG", "setScore: noOfLives: " + noOfLives);
             if (noOfLives == 0) {
-                Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
-                intent.putExtra("score", score);
-                startActivity(intent);
-                finish();
+                resetLivesImg();
+                updateLives(noOfLives);
+                showContinueDialog(score);
             } else {
                 resetLivesImg();
                 updateLives(noOfLives);
@@ -221,13 +258,98 @@ public class QuizActivity extends AppCompatActivity {
         return score;
     }
 
+    private void showContinueDialog(int score) {
+        final int[] time = {5};
+
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_continue, null, false);
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        Button btnContinue = view.findViewById(R.id.btn_cl_continue);
+        Button btnQuit = view.findViewById(R.id.btn_cl_quit);
+
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(view, 849, 500);
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if (time[0] > 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnContinue.setText("Continue " + time[0] + "s");
+                        }
+                    });
+                    time[0]--;
+                } else if (time[0] == 0) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            btnContinue.setVisibility(View.GONE);
+                        }
+                    });
+                    cancel();
+                }
+            }
+        }, 0, 1000);
+
+        btnContinue.setOnClickListener(v -> {
+            continuePressed = true;
+            showRewardedAd();
+            dialog.dismiss();
+        });
+
+        btnQuit.setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
+            intent.putExtra("score", score);
+            startActivity(intent);
+            finish();
+        });
+    }
+
+    private void showRewardedAd() {
+        if (UnityAds.isInitialized()) {
+            UnityAds.show(this, rewardedPlacement);
+        }
+    }
+
+    void showErrorDialog(int score) {
+        Log.d("TAG", "showErrorDialog: score: " + score);
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_ad_error, null, false);
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(view);
+        dialog.setCancelable(false);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialog.show();
+
+        Button btnQuit = view.findViewById(R.id.btn_ael_quit);
+
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(view, 849, 500);
+
+        btnQuit.setOnClickListener(v -> {
+            dialog.dismiss();
+            Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
+            intent.putExtra("score", score);
+            startActivity(intent);
+            finish();
+        });
+    }
+
     public void resetLivesImg() {
         ivLife1.setImageResource(R.drawable.grey_heart);
         ivLife2.setImageResource(R.drawable.grey_heart);
         ivLife3.setImageResource(R.drawable.grey_heart);
     }
 
-    private void updateLives(int noOfLives) {
+    public void updateLives(int noOfLives) {
         Log.d("TAG", "updateLives: noOfLives: " + noOfLives);
         int[] lives = {R.id.iv_life_3, R.id.iv_life_2, R.id.iv_life_1};
 
@@ -250,5 +372,35 @@ public class QuizActivity extends AppCompatActivity {
         btnOption2.setEnabled(true);
         btnOption3.setEnabled(true);
         btnOption4.setEnabled(true);
+    }
+
+    @Override
+    public void onUnityAdsReady(String s) {
+        Log.d("TAG", "onUnityAdsReady: ");
+    }
+
+    @Override
+    public void onUnityAdsStart(String s) {
+        Log.d("TAG", "onUnityAdsStart: ");
+    }
+
+    @Override
+    public void onUnityAdsFinish(String s, UnityAds.FinishState finishState) {
+        if (finishState == UnityAds.FinishState.COMPLETED) {
+            Log.d("TAG", "onUnityAdsFinish: COMPLETED");
+            resetLivesImg();
+            updateLives(3);
+            noOfLives = 3;
+        }
+    }
+
+    @Override
+    public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String s) {
+        Log.d("TAG", "onUnityAdsError: " + unityAdsError.toString());
+        Log.d("TAG", "onUnityAdsError: continuePressed: " + continuePressed);
+        if (continuePressed) {
+            showErrorDialog(Integer.parseInt(tvScore.getText().toString()));
+            continuePressed = false;
+        }
     }
 }

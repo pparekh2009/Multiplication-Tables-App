@@ -7,12 +7,19 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.priyanshparekh.multiplicationtables.R;
+import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.unity3d.services.banners.BannerView;
 
 public class QuizLevelActivity extends AppCompatActivity {
 
     Button btnTraining, btnEasy, btnMedium, btnHard, btnInsane;
+
+    AdManager adManager;
+    BannerView bannerView;
+    RelativeLayout bannerContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +29,12 @@ public class QuizLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_level);
 
         intiViews();
+
+        bannerContainer = findViewById(R.id.qla_banner_container);
+        adManager = new AdManager(this);
+        bannerView = adManager.initBanner();
+        bannerView.load();
+        bannerContainer.addView(bannerView);
 
         btnTraining.setOnClickListener(view -> nextActivity("training"));
         btnEasy.setOnClickListener(view -> nextActivity("easy"));

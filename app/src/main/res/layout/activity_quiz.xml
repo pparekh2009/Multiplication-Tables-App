@@ -206,7 +206,7 @@
         android:fontFamily="@font/hpsimplified_rg"
         android:paddingHorizontal="@dimen/_10sdp"
         app:layout_constraintStart_toEndOf="@id/quit_btn"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/qa_banner_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/option_btns" />
 
@@ -224,4 +224,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/next_btn"
         app:layout_constraintBottom_toBottomOf="@id/next_btn"/>
+
+    <RelativeLayout
+        android:id="@+id/qa_banner_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
