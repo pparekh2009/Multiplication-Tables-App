@@ -30,7 +30,7 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
     RelativeLayout bannerContainer;
 
     String unityGameId = "4992527";
-    boolean testMode = true;
+    boolean testMode = false;
     String interstitialPlacement = "Interstitial_Android";
     int range;
 

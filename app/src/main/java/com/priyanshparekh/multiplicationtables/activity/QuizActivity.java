@@ -50,7 +50,7 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
     BannerView bannerView;
     RelativeLayout bannerContainer;
     boolean continuePressed = false;
-    boolean testMode = true;
+    boolean testMode = false;
     String unityGameId = "4992527";
     String rewardedPlacement = "Rewarded_Android";
 
@@ -399,7 +399,8 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
         Log.d("TAG", "onUnityAdsError: " + unityAdsError.toString());
         Log.d("TAG", "onUnityAdsError: continuePressed: " + continuePressed);
         if (continuePressed) {
-            showErrorDialog(Integer.parseInt(tvScore.getText().toString()));
+            Toast.makeText(this, "Error Loading Ad", Toast.LENGTH_SHORT).show();
+//            showErrorDialog(Integer.parseInt(tvScore.getText().toString()));
             continuePressed = false;
         }
     }

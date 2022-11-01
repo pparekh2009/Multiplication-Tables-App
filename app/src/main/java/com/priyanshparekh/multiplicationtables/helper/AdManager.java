@@ -19,7 +19,7 @@ import com.unity3d.services.banners.UnityBannerSize;
 public class AdManager {
 
     String unityGameId = "4992527";
-    boolean testMode = true;
+    boolean testMode = false;
     boolean enableLoad = true;
 //    String bannerPlacement = "Banner_Android";
     String bannerPlacement = "banner";

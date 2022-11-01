@@ -10,7 +10,7 @@ android {
         applicationId "com.priyanshparekh.multiplicationtables"
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 6
+        versionCode 7
         versionName "2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

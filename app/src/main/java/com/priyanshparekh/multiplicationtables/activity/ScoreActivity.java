@@ -36,7 +36,7 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
     RelativeLayout bannerContainer;
 
     String unityGameId = "4992527";
-    boolean testMode = true;
+    boolean testMode = false;
     String interstitialPlacement = "Interstitial_Android";
 
     @Override
