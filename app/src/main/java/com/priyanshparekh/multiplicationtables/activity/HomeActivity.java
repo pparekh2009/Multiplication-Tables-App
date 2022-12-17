@@ -10,10 +10,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.priyanshparekh.multiplicationtables.R;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 
 public class HomeActivity extends AppCompatActivity {
 
-    Button learnBtn, quizBtn;
+    Button learnBtn, quizBtn, settingsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class HomeActivity extends AppCompatActivity {
 
         learnBtn = findViewById(R.id.learn_btn);
         quizBtn = findViewById(R.id.quiz_btn);
+        settingsBtn = findViewById(R.id.settings_btn);
+
+        resize();
 
         // Navigates to multiplication tables page
         learnBtn.setOnClickListener(new View.OnClickListener() {
@@ -42,6 +46,21 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        settingsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void resize() {
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(learnBtn, 500, 150);
+        HelperResizer.setSize(quizBtn, 500, 150);
+        HelperResizer.setSize(settingsBtn, 500, 150);
     }
 
     @Override

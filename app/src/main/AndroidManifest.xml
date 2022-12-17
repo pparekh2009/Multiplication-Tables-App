@@ -9,28 +9,44 @@
         android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".activity.ExitActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.ScoreActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuizLevelActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.TableRangeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity android:name=".activity.HomeActivity"
+
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".activity.ExitActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.QuizActivity"
-            android:exported="false"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.MainActivity"
+        <activity
+            android:name=".activity.ScoreActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.SplashScreen"
+        <activity
+            android:name=".activity.QuizLevelActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TableRangeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.HomeActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.QuizActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SplashScreen"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

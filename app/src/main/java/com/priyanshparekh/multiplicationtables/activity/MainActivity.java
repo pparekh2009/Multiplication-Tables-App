@@ -1,6 +1,7 @@
 package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -16,6 +18,7 @@ import android.widget.TextView;
 import com.priyanshparekh.multiplicationtables.R;
 import com.priyanshparekh.multiplicationtables.adapter.TableAdapter;
 import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 import com.unity3d.services.banners.BannerView;
 
 import java.util.ArrayList;
@@ -34,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     RelativeLayout bannerContainer;
     BannerView bannerView;
 
+    ConstraintLayout topBar;
+    TextView tvHeader;
+    ImageView ivBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,12 +53,22 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
         seekBar = findViewById(R.id.seekBar);
         textView2 = findViewById(R.id.textView2);
+        topBar = findViewById(R.id.tb_ma_top_bar);
+        tvHeader = findViewById(R.id.tv_header);
+        ivBack = findViewById(R.id.iv_back);
+
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(topBar, 1080, 150);
+        HelperResizer.setSize(ivBack, 100, 51);
 
         bannerContainer = findViewById(R.id.ma_banner_container);
         adManager = new AdManager(this);
         bannerView = adManager.initBanner();
         bannerView.load();
         bannerContainer.addView(bannerView);
+
+        ivBack.setOnClickListener(view -> onBackPressed());
+        tvHeader.setText("Multiplication Tables");
 
         int range = getIntent().getIntExtra("range", 0);
 

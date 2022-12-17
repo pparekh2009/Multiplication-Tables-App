@@ -1,16 +1,20 @@
 package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.priyanshparekh.multiplicationtables.R;
 import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 import com.unity3d.services.banners.BannerView;
 
 public class QuizLevelActivity extends AppCompatActivity {
@@ -21,6 +25,10 @@ public class QuizLevelActivity extends AppCompatActivity {
     BannerView bannerView;
     RelativeLayout bannerContainer;
 
+    ConstraintLayout topBar;
+    TextView tvHeader;
+    ImageView ivBack;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +37,13 @@ public class QuizLevelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quiz_level);
 
         intiViews();
+
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(topBar, 1080, 150);
+        HelperResizer.setSize(ivBack, 100, 51);
+
+        ivBack.setOnClickListener(view -> onBackPressed());
+        tvHeader.setText("Level Selections");
 
         bannerContainer = findViewById(R.id.qla_banner_container);
         adManager = new AdManager(this);
@@ -55,5 +70,8 @@ public class QuizLevelActivity extends AppCompatActivity {
         btnMedium = findViewById(R.id.btn_medium);
         btnHard = findViewById(R.id.btn_hard);
         btnInsane = findViewById(R.id.btn_insane);
+        topBar = findViewById(R.id.tb_qla_top_bar);
+        tvHeader = findViewById(R.id.tv_header);
+        ivBack = findViewById(R.id.iv_back);
     }
 }

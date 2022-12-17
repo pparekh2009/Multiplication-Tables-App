@@ -18,16 +18,16 @@ import com.unity3d.services.banners.UnityBannerSize;
 
 public class AdManager {
 
-    String unityGameId = "4992527";
-    boolean testMode = false;
+//    String unityGameId = "4992527";
+//    boolean testMode = false;
     boolean enableLoad = true;
 //    String bannerPlacement = "Banner_Android";
-    String bannerPlacement = "banner";
+//    String bannerPlacement = "banner";
     String interstitialPlacement = "Interstitial_Android";
 
     Activity activity;
 
-    UnityBannerListener bannerListener = new UnityBannerListener();
+    UnityBannerListener bannerListener;
 
     BannerView bottomBanner;
 
@@ -36,14 +36,21 @@ public class AdManager {
     }
 
     public BannerView initBanner() {
-        UnityAds.initialize(activity, unityGameId, null, testMode, enableLoad);
+        bannerListener = new UnityBannerListener(activity);
+        UnityAds.initialize(activity, Constants.unityGameId, null, Constants.testMode, enableLoad);
 
-        bottomBanner = new BannerView(activity, bannerPlacement, new UnityBannerSize(320, 50));
+        bottomBanner = new BannerView(activity, Constants.bannerPlacement, new UnityBannerSize(320, 50));
         bottomBanner.setListener(bannerListener);
         return bottomBanner;
     }
 
     private static class UnityBannerListener implements BannerView.IListener {
+
+        Activity activity;
+
+        UnityBannerListener(Activity activity) {
+            this.activity = activity;
+        }
 
         @Override
         public void onBannerLoaded(BannerView bannerView) {
@@ -57,6 +64,11 @@ public class AdManager {
 
         @Override
         public void onBannerFailedToLoad(BannerView bannerView, BannerErrorInfo bannerErrorInfo) {
+            while (!UnityAds.isReady(Constants.bannerPlacement)) {
+                UnityAds.load(Constants.bannerPlacement);
+                Log.d("TAG", "onBannerFailedToLoad: loading banner ads");
+            }
+            UnityAds.show(activity, Constants.bannerPlacement);
             Log.d("TAG", "onBannerFailedToLoad: error: " + bannerErrorInfo.errorMessage);
         }
 

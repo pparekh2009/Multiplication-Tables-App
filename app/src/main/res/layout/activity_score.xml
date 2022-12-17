@@ -7,14 +7,22 @@
     tools:context=".activity.ScoreActivity"
     android:background="@color/bg">
 
+    <include
+        android:id="@+id/tb_sa_top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
     <TextView
         android:id="@+id/tv_sa_score_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Score"
         android:textSize="@dimen/_30sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_sa_top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

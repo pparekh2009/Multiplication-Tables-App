@@ -7,6 +7,13 @@
     tools:context=".activity.QuizLevelActivity"
     android:background="@color/bg">
 
+    <include
+        android:id="@+id/tb_qla_top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <TextView
         android:id="@+id/tv_level_header"
         android:layout_width="wrap_content"

@@ -1,6 +1,7 @@
 package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import com.priyanshparekh.multiplicationtables.R;
 import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.Constants;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.IUnityAdsLoadListener;
 import com.unity3d.ads.IUnityAdsShowListener;
@@ -35,9 +38,9 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
     BannerView bannerView;
     RelativeLayout bannerContainer;
 
-    String unityGameId = "4992527";
-    boolean testMode = false;
-    String interstitialPlacement = "Interstitial_Android";
+    ConstraintLayout topBar;
+    TextView tvHeader;
+    ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,13 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
         setContentView(R.layout.activity_score);
 
         initViews();
+
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(topBar, 1080, 150);
+        HelperResizer.setSize(ivBack, 100, 51);
+
+        ivBack.setOnClickListener(view -> onBackPressed());
+        tvHeader.setText("Score");
 
         bannerContainer = findViewById(R.id.sa_banner_container);
         adManager = new AdManager(this);
@@ -76,7 +86,7 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
             if (getCount("play_again_count") % 3 == 0) {
                 setCount("play_again_count", 1);
                 if (UnityAds.isInitialized()) {
-                    UnityAds.show(this, interstitialPlacement, showListener);
+                    UnityAds.show(this, Constants.interstitialPlacement, showListener);
                 } else {
                     Intent intent = new Intent(ScoreActivity.this, QuizLevelActivity.class);
                     startActivity(intent);
@@ -95,7 +105,7 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
             if (getCount("exit_count") % 5 == 0) {
                 setCount("exit_count", 1);
                 if (UnityAds.isInitialized()) {
-                    UnityAds.show(this, interstitialPlacement, showListener);
+                    UnityAds.show(this, Constants.interstitialPlacement, showListener);
                 } else {
                     Intent intent = new Intent(ScoreActivity.this, HomeActivity.class);
                     startActivity(intent);
@@ -116,6 +126,9 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
         btnPlayAgain = findViewById(R.id.btn_sa_play_again);
         btnExit = findViewById(R.id.btn_sa_exit);
         ivTrophy = findViewById(R.id.iv_sa_trophy);
+        topBar = findViewById(R.id.tb_sa_top_bar);
+        tvHeader = findViewById(R.id.tv_header);
+        ivBack = findViewById(R.id.iv_back);
     }
 
     public void scaleView(View v) {
@@ -204,7 +217,7 @@ public class ScoreActivity extends AppCompatActivity implements IUnityAdsInitial
     }
 
     private void DisplayInterstitialAd() {
-        UnityAds.load(interstitialPlacement, loadListener);
+        UnityAds.load(Constants.interstitialPlacement, loadListener);
     }
 
     @Override

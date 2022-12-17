@@ -1,6 +1,7 @@
 package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,10 +10,14 @@ import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.priyanshparekh.multiplicationtables.R;
 import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.Constants;
+import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 import com.unity3d.ads.IUnityAdsInitializationListener;
 import com.unity3d.ads.IUnityAdsListener;
 import com.unity3d.ads.IUnityAdsLoadListener;
@@ -29,9 +34,10 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
     BannerView bannerView;
     RelativeLayout bannerContainer;
 
-    String unityGameId = "4992527";
-    boolean testMode = false;
-    String interstitialPlacement = "Interstitial_Android";
+    ConstraintLayout topBar;
+    TextView tvHeader;
+    ImageView ivBack;
+
     int range;
 
     @Override
@@ -42,8 +48,12 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
         setContentView(R.layout.activity_table_category);
 
         initViews();
+        resize();
 
-        UnityAds.initialize(this, unityGameId, testMode, this);
+        tvHeader.setText("Select Table Range");
+        ivBack.setOnClickListener(view -> onBackPressed());
+
+        UnityAds.initialize(this, Constants.unityGameId, Constants.testMode, this);
 
         adManager = new AdManager(this);
         bannerView = adManager.initBanner();
@@ -62,6 +72,12 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
         btn71_80.setOnClickListener(view -> nextActivity(70));
         btn81_90.setOnClickListener(view -> nextActivity(80));
         btn91_100.setOnClickListener(view -> nextActivity(90));
+    }
+
+    private void resize() {
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(topBar, 1080, 150);
+        HelperResizer.setSize(ivBack, 100, 51);
     }
 
     void setCount(int count) {
@@ -91,15 +107,18 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
         btn71_80 = findViewById(R.id.btn_71_80);
         btn81_90 = findViewById(R.id.btn_81_90);
         btn91_100 = findViewById(R.id.btn_91_100);
+        topBar = findViewById(R.id.tb_tca_top_bar);
+        tvHeader = findViewById(R.id.tv_header);
+        ivBack = findViewById(R.id.iv_back);
     }
 
     void nextActivity(int range) {
         Log.d("TAG", "nextActivity: " + getCount());
         setRange(range);
-        if (getCount() % 6 == 0) {
+        if (getCount() % 3 == 0) {
             setCount(1);
             if (UnityAds.isInitialized()) {
-                UnityAds.show(this, interstitialPlacement, showListener);
+                UnityAds.show(this, Constants.interstitialPlacement, showListener);
             } else {
                 Intent intent = new Intent(TableRangeActivity.this, MainActivity.class);
                 intent.putExtra("range", getRange());
@@ -192,7 +211,7 @@ public class TableRangeActivity extends AppCompatActivity implements IUnityAdsIn
     }
 
     private void DisplayInterstitialAd() {
-        UnityAds.load(interstitialPlacement, loadListener);
+        UnityAds.load(Constants.interstitialPlacement, loadListener);
     }
 
     @Override

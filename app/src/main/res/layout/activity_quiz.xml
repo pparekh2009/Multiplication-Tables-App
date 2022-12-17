@@ -7,17 +7,24 @@
     tools:context=".activity.QuizActivity"
     android:background="@color/bg">
 
-    <TextView
-        android:id="@+id/quiz_header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Quiz"
-        android:layout_margin="@dimen/_10sdp"
-        android:textSize="@dimen/_24sdp"
-        android:textColor="#0A2778"
-        android:fontFamily="@font/hpsimplified_rg"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <include
+        android:id="@+id/tb_qa_top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+<!--    <TextView-->
+<!--        android:id="@+id/quiz_header"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Quiz"-->
+<!--        android:layout_margin="@dimen/_10sdp"-->
+<!--        android:textSize="@dimen/_24sdp"-->
+<!--        android:textColor="#0A2778"-->
+<!--        android:fontFamily="@font/hpsimplified_rg"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <TextView
         android:id="@+id/tv_score_lbl"
@@ -29,7 +36,7 @@
         android:layout_marginTop="32dp"
         android:textColor="#0A2778"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quiz_header"
+        app:layout_constraintTop_toBottomOf="@+id/tb_qa_top_bar"
         app:layout_constraintBottom_toTopOf="@+id/question_layout" />
 
     <TextView

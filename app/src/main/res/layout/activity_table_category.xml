@@ -7,6 +7,13 @@
     tools:context=".activity.TableRangeActivity"
     android:background="@color/bg">
 
+    <include
+        android:id="@+id/tb_tca_top_bar"
+        layout="@layout/layout_top_bar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <Button
         android:id="@+id/btn_1_10"
         android:layout_width="0dp"
@@ -16,7 +23,7 @@
         android:padding="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:background="@drawable/btn_bg"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tb_tca_top_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btn_11_20"
         app:layout_constraintBottom_toTopOf="@id/btn_21_30"/>

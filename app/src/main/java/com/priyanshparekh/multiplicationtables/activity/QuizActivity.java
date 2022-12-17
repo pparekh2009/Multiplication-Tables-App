@@ -1,12 +1,15 @@
 package com.priyanshparekh.multiplicationtables.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,8 +25,10 @@ import android.widget.Toast;
 
 import com.priyanshparekh.multiplicationtables.R;
 import com.priyanshparekh.multiplicationtables.helper.AdManager;
+import com.priyanshparekh.multiplicationtables.helper.Constants;
 import com.priyanshparekh.multiplicationtables.helper.HelperResizer;
 import com.unity3d.ads.IUnityAdsListener;
+import com.unity3d.ads.IUnityAdsLoadListener;
 import com.unity3d.ads.UnityAds;
 import com.unity3d.services.banners.BannerView;
 
@@ -50,9 +55,11 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
     BannerView bannerView;
     RelativeLayout bannerContainer;
     boolean continuePressed = false;
-    boolean testMode = false;
-    String unityGameId = "4992527";
-    String rewardedPlacement = "Rewarded_Android";
+
+    ConstraintLayout topBar;
+    TextView tvHeader;
+    ImageView ivBack;
+    int score;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +71,14 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
         initViews();
         updateLives(noOfLives);
 
-        UnityAds.initialize(this, unityGameId, this, testMode);
+        HelperResizer.getheightandwidth(this);
+        HelperResizer.setSize(topBar, 1080, 150);
+        HelperResizer.setSize(ivBack, 100, 51);
+
+        ivBack.setOnClickListener(view -> onBackPressed());
+        tvHeader.setText("Quiz");
+
+        UnityAds.initialize(this, Constants.unityGameId, this, Constants.testMode);
 
         bannerContainer = findViewById(R.id.qa_banner_container);
         adManager = new AdManager(this);
@@ -202,6 +216,9 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
         ivLife1 = findViewById(R.id.iv_life_1);
         ivLife2 = findViewById(R.id.iv_life_2);
         ivLife3 = findViewById(R.id.iv_life_3);
+        topBar = findViewById(R.id.tb_qa_top_bar);
+        tvHeader = findViewById(R.id.tv_header);
+        ivBack = findViewById(R.id.iv_back);
     }
 
     public void checkAns(Button btn) {
@@ -226,8 +243,8 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
 //            toast.show();
             btn.setBackgroundResource(R.drawable.wrong_btn_bg);
         }
-        int score = Integer.parseInt(tvScore.getText().toString());
-        tvScore.setText(String.valueOf(setScore(btn, score)));
+        score = Integer.parseInt(tvScore.getText().toString());
+        tvScore.setText(String.valueOf(setScore(btn)));
     }
 
     public boolean checkAnswer(Button btn) {
@@ -238,7 +255,7 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
         return (ans == (num1 * num2));
     }
 
-    public int setScore(Button btn, int score) {
+    public int setScore(Button btn) {
 
         if (checkAnswer(btn)) {
             score = score + 2;
@@ -315,11 +332,41 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
 
     private void showRewardedAd() {
         if (UnityAds.isInitialized()) {
-            UnityAds.show(this, rewardedPlacement);
+            Log.d("TAG", "showRewardedAd: unity ads initialized");
+            if (UnityAds.isReady(Constants.interstitialPlacement)) {
+                Log.d("TAG", "showRewardedAd: unity ads ready");
+                UnityAds.show(this, Constants.interstitialPlacement);
+            } else {
+                Log.d("TAG", "showRewardedAd: unity ads not ready");
+                ProgressDialog dialog = new ProgressDialog(QuizActivity.this);
+                dialog.setTitle("Loading Ads");
+                dialog.show();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        dialog.dismiss();
+                        UnityAds.load(Constants.interstitialPlacement);
+                        if (UnityAds.isReady()) {
+                            Log.d("TAG", "run: unity ads ready again");
+                            UnityAds.show(QuizActivity.this, Constants.interstitialPlacement);
+                        } else {
+                            Log.d("TAG", "run: unity ads not ready again");
+                            continuePressed = false;
+
+                            Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
+                            intent.putExtra("score", score);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }, 5000);
+            }
+        } else {
+            Log.d("TAG", "showRewardedAd: unity ads not initialized");
         }
     }
 
-    void showErrorDialog(int score) {
+    void showErrorDialog() {
         Log.d("TAG", "showErrorDialog: score: " + score);
         View view = LayoutInflater.from(this).inflate(R.layout.layout_ad_error, null, false);
 
@@ -386,13 +433,24 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
 
     @Override
     public void onUnityAdsFinish(String s, UnityAds.FinishState finishState) {
-        if (finishState == UnityAds.FinishState.COMPLETED) {
+        if (finishState != UnityAds.FinishState.ERROR) {
             Log.d("TAG", "onUnityAdsFinish: COMPLETED");
             resetLivesImg();
             updateLives(3);
             noOfLives = 3;
+//        } else if (finishState == UnityAds.FinishState.SKIPPED) {
+//            showSkippedDialog();
         }
     }
+
+    private void showSkippedDialog() {
+        View view = LayoutInflater.from(this).inflate(R.layout.layout_ad_skip_warning, null, false);
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
 
     @Override
     public void onUnityAdsError(UnityAds.UnityAdsError unityAdsError, String s) {
@@ -402,6 +460,12 @@ public class QuizActivity extends AppCompatActivity implements IUnityAdsListener
             Toast.makeText(this, "Error Loading Ad", Toast.LENGTH_SHORT).show();
 //            showErrorDialog(Integer.parseInt(tvScore.getText().toString()));
             continuePressed = false;
+
+            Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
+            Log.d("TAG", "onUnityAdsError: score: " + tvScore.getText());
+            intent.putExtra("score", score);
+            startActivity(intent);
+            finish();
         }
     }
 }
