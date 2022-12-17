@@ -12,11 +12,8 @@
 
         <activity
             android:name=".activity.SettingsActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.ExitActivity"
             android:exported="false"
